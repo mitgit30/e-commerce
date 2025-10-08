@@ -188,7 +188,7 @@ function Footer() {
   return (
     <footer className="mt-5 text-center text-muted">
       <hr />
-      <small>Made with ❤️ using React & Bootstrap</small>
+      <small>Made with using React & Bootstrap</small>
     </footer>
   );
 }
