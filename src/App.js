@@ -53,10 +53,10 @@ function Cart({ items, removeFromCart }) {
 
   return (
     <div className="card shadow-sm">
-      <div className="card-header bg-dark text-white">
+      {/* <div className="card-header bg-dark text-white">
         <strong>🛒 Cart</strong> ({items.length} items)
-      </div>
-      <ul className="list-group list-group-flush">
+      </div> */}
+      {/* <ul className="list-group list-group-flush">
         {items.length === 0 ? (
           <li className="list-group-item text-muted text-center">Cart is empty</li>
         ) : (
@@ -67,7 +67,7 @@ function Cart({ items, removeFromCart }) {
         {items.length > 0 && (
           <li className="list-group-item text-end fw-bold">Total: ${total.toFixed(2)}</li>
         )}
-      </ul>
+      </ul> */}
     </div>
   );
 }
@@ -87,7 +87,6 @@ function AddProductForm({ onAdd }) {
 
   return (
     <form className="mb-5" onSubmit={handleSubmit}>
-      <h4 className="mb-3">➕ Add New Product</h4>
       <div className="row g-2">
         <div className="col-md-5">
           <input
@@ -123,9 +122,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [
-        { id: 1, name: 'SkyBag', price: 999 },
-        { id: 2, name: 'Washing Machine', price: 499 },
-        { id: 3, name: 'Water Bottle', price: 199 },
+        { id: 1, name: 'Laptop', price: 999 },
+        { id: 2, name: 'Phone', price: 499 },
+        { id: 3, name: 'Headphones', price: 199 },
       ],
       cart: []
     };
@@ -184,12 +183,12 @@ class App extends React.Component {
 
     return (
       <div className="container py-5">
-        <h1 className="text-center mb-4">💻 React E-commerce Demo</h1>
+        <h1 className="mb-4"> React E-commerce Demo</h1>
         <AddProductForm onAdd={this.handleAddProduct} />
 
         <div className="row">
           <div className="col-lg-8">
-            <h4 className="mb-3">🛍️ Products</h4>
+            <h4 className="mb-3">Products</h4>
             <ProductList products={products} addToCart={this.addToCart} />
           </div>
           <div className="col-lg-4 mt-5 mt-lg-0">
@@ -215,7 +214,7 @@ function Footer() {
   return (
     <footer className="mt-5 text-center text-muted">
       <hr />
-      <small>Made with ❤️ using React & Bootstrap — © 2025</small>
+      <small>Made with  using React & Bootstrap</small>
     </footer>
   );
 }
