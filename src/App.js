@@ -35,43 +35,6 @@ function ProductList({ products, addToCart }) {
   );
 }
 
-// ----- Functional Component: CartItem -----
-function CartItem({ item, removeFromCart }) {
-  return (
-    <li className="list-group-item d-flex justify-content-between align-items-center">
-      {item.name} x {item.quantity}
-      <button className="btn btn-sm btn-danger" onClick={() => removeFromCart(item.id)}>
-        Remove
-      </button>
-    </li>
-  );
-}
-
-// ----- Functional Component: Cart -----
-function Cart({ items, removeFromCart }) {
-  const total = calculateTotal(items);
-
-  return (
-    <div className="card shadow-sm">
-      {/* <div className="card-header bg-dark text-white">
-        <strong>🛒 Cart</strong> ({items.length} items)
-      </div> */}
-      {/* <ul className="list-group list-group-flush">
-        {items.length === 0 ? (
-          <li className="list-group-item text-muted text-center">Cart is empty</li>
-        ) : (
-          items.map((item) => (
-            <CartItem key={item.id} item={item} removeFromCart={removeFromCart} />
-          ))
-        )}
-        {items.length > 0 && (
-          <li className="list-group-item text-end fw-bold">Total: ${total.toFixed(2)}</li>
-        )}
-      </ul> */}
-    </div>
-  );
-}
-
 // ----- Controlled Form: AddProductForm -----
 function AddProductForm({ onAdd }) {
   const [name, setName] = useState('');
@@ -128,21 +91,6 @@ class App extends React.Component {
       ],
       cart: []
     };
-    console.log('Constructor');
-  }
-
-  componentDidMount() {
-    console.log('App mounted');
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.cart.length !== this.state.cart.length) {
-      console.log('Cart updated', this.state.cart);
-    }
-  }
-
-  componentWillUnmount() {
-    console.log('App will unmount');
   }
 
   addToCart = (product) => {
@@ -180,19 +128,45 @@ class App extends React.Component {
 
   render() {
     const { products, cart } = this.state;
+    const total = calculateTotal(cart);
 
     return (
       <div className="container py-5">
-        <h1 className="mb-4"> React E-commerce Demo</h1>
+        <h1 className="mb-4">React E-commerce Demo</h1>
         <AddProductForm onAdd={this.handleAddProduct} />
 
         <div className="row">
-          <div className="col-lg-8">
+          <div className="col-lg-12">
             <h4 className="mb-3">Products</h4>
             <ProductList products={products} addToCart={this.addToCart} />
-          </div>
-          <div className="col-lg-4 mt-5 mt-lg-0">
-            <Cart items={cart} removeFromCart={this.removeFromCart} />
+
+            {/* Show selected items (cart) below products */}
+            <div className="mt-5">
+              <h4>Selected Items</h4>
+              {cart.length === 0 ? (
+                <p className="text-muted">No items selected yet.</p>
+              ) : (
+                <ul className="list-group">
+                  {cart.map((item) => (
+                    <li
+                      key={item.id}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      {item.name} x {item.quantity}
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => this.removeFromCart(item.id)}
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                  <li className="list-group-item text-end fw-bold">
+                    Total: ${total.toFixed(2)}
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
         </div>
 
@@ -214,10 +188,12 @@ function Footer() {
   return (
     <footer className="mt-5 text-center text-muted">
       <hr />
-      <small>Made with  using React & Bootstrap</small>
+      <small>Made with ❤️ using React & Bootstrap</small>
     </footer>
   );
 }
-export default App
+
+export default App;
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
