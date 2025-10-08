@@ -184,7 +184,7 @@ class App extends React.Component {
 
     return (
       <div className="container py-5">
-        <h1 className="text-center mb-4">💻 React E-commerce Store</h1>
+        <h1 className="text-center mb-4">💻 React E-commerce Demo</h1>
         <AddProductForm onAdd={this.handleAddProduct} />
 
         <div className="row">
